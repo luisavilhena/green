@@ -1,0 +1,41 @@
+@import 'variables.less';
+
+section {
+	position: relative;
+}
+#green-section-home {
+	position: relative;
+	height: 100vh;
+	.green-page-image {
+		height: 100vh;
+		background-image:url("../resources/illustrations/illustration-home.png");
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
+}
+
+#green-section-filter {
+	position: relative;
+	height: 100vh;
+}
+#green-section-picks {
+
+}
+#green-section-contact {
+	position: relative;
+	height: 100vh;
+}
+
+@media screen and (max-width: @min-width) {
+	.green-section-responsive {
+		.green-section-responsive__center {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-bottom: 40px;
+		}
+	}
+	#green-section-picks {
+		height: 100vh;
+	}
+}

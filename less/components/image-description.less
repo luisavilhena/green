@@ -1,0 +1,40 @@
+@import 'colors.less';
+@import 'variables.less';
+
+.green-image-description {
+	> p {
+		color: @color-light-silver;
+	}
+	> img {
+		margin-bottom: 30px;
+	}
+	.green-image-description__description {
+		display: flex;
+		flex-direction: column;
+		color: @color-light-silver;
+		> div {
+			margin-bottom: 10px;
+			&:last-child {
+				margin-bottom: 0px;
+			}
+			> img {
+				height: 28px;
+				width: 28px;
+			}
+		}
+	}
+}
+@media screen and (max-width: @min-width) {
+	.green-image-description {
+		margin-bottom: 30px;
+		> img {
+			height: 120px;
+		}
+		.green-image-description__description {
+			> div {
+				> img {
+				}
+			}
+		}
+	}
+}

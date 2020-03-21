@@ -1,0 +1,34 @@
+@import 'colors.less';
+@import 'variables.less';
+
+.green-logo-rotate {
+	position: absolute;
+	bottom: 0;
+	left: 10%;
+	transform-origin: bottom left;
+	transform: rotate(-90deg) translateY(100%);
+	display: flex;
+	align-items: center;
+	> img {
+		margin-top: 20px;
+		width: 175px;
+	}
+	> div {
+		width: calc(100vh - 230px);
+		height: 1px;
+		background-color: @color-green;
+		margin-right: 20px;
+	}
+}
+.green-logo {
+	z-index: 1;
+	top: 60px;
+	margin-left: 15px;
+	position: fixed;
+	width: 170px;
+	@media screen and (max-width: @min-width) {
+		top: 20px;
+		margin: 0 auto;
+		transform: translateX(50%);
+	}
+}

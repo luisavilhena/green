@@ -1,0 +1,29 @@
+@import 'colors.less';
+@import 'variables.less';
+
+.green-btn {
+	margin-top: 35px;
+	padding: 10px 20px;
+	display: inline-flex;
+	align-items: center;
+	border: 1px solid @color-green;
+	border-radius: 20px;
+	cursor: pointer;
+	text-decoration: none;
+	transition: background-color 0.5s ease;
+ 	 
+
+ 	//with icons
+ 	&.green-btn--with-icon {
+ 		img {
+ 			margin-right: 20px;
+ 			width: 22px;
+ 			height: 22px;
+ 		}
+ 	}
+}
+@media screen and (max-width: @min-width ) {
+	.green-btn {
+		margin-top: 15px;
+	}
+}
