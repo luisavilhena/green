@@ -3,5 +3,5 @@
 	    "minified": true,
 	    "sourceMap": false,
 	    "watchFolder": "less",
-	    "outputFolder": "css"
+	    "outputFolder": "public/css"
 	}

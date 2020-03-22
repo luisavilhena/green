@@ -15,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/luisavilhena/green/issues"
   },
-  "homepage": "https://github.com/luisavilhena/green#readme"
+  "homepage": "https://github.com/luisavilhena/green#readme",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "husky": "^4.2.3",
+    "node": "^13.10.1",
+    "node.js": "0.0.1-security"
+  },
+  "dependencies": {
+    "eslint-friendly-formatter": "^4.0.1",
+    "prettier": "^2.0.1"
+  }
 }
