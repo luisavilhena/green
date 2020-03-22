@@ -6,6 +6,12 @@ const app = express();
 
 app.use(express.static('public'));
 
+app.get('/', (req, res) => {
+  const parsedUrl = url.parse(request.url, true);
+  console.log('parsedUrl')
+});
+app.listen(8080, () => console.log('Aplicação executando na porta 8080!'));
+
 // const server = http.createServer((req, res) => {
 
 // 	if(req.url=='/') {
@@ -14,10 +20,6 @@ app.use(express.static('public'));
 // 	}
 // })
 
-app.get('/', (req, res) => {
-  res.send('App - Intro Star Wars');
-});
-app.listen(8080, () => console.log('Aplicação executando na porta 8080!'));
 
 // const server = http.createServer((req, res) => {
 // 	res.end('foi');
