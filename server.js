@@ -3,13 +3,23 @@ const fs = require("fs");
 const url = require("url");
 const express = require("express");
 const app = express();
+const server = http.createServer();
+
+
 
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  const parsedUrl = url.parse(request.url, true);
-  console.log('parsedUrl')
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
 });
+
+// server.on('request', (req, res) => {
+//   res.setHeader("Content-Type", "text/html; charset=utf-8");
+//   if(req.url === '/#green-section-picks') {
+//     // console.log('oooooooooooooooooooooooooeeeeeeee')
+//   }
+// })
+
 app.listen(8080, () => console.log('Aplicação executando na porta 8080!'));
 
 // const server = http.createServer((req, res) => {

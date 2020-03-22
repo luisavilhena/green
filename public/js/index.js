@@ -4,12 +4,12 @@ const greenLogo = document.querySelector('.green-logo')
 const $sectionHome = jQuery('#green-section-home')
 const greenCarouselMobile = document.querySelector('.green-carousel-mobile')
 const greenCarouselDesktop = document.querySelector('.green-carousel-desktop')
+const greenSectionPicks = document.querySelector('#green-section-picks')
 
-// Crio uma variavel para salvar a resposta da primeira pergunta
 let haveSunlight = undefined;
 let haveWater = undefined;
-let havePets = undefined;
-// pego todas as respostas da primeira pergunta, e adiciono um evento de clique nelas
+let isToxit = undefined;
+
 const $sunlightAnswerHight = jQuery(".sunlight_answer_hight");
 const $sunlightAnswerLow = jQuery(".sunlight_answer_low");
 const $sunlightAnswerNo = jQuery(".sunlight_answer_no");
@@ -23,70 +23,108 @@ const $buyNow = jQuery(".buy_now_button");
 
 $sunlightAnswerHight.click((e) => {
 	haveSunlight = 'high'
+    $sunlightAnswerNo.removeClass('active'),
+    $sunlightAnswerLow.removeClass('active')
+    $sunlightAnswerHight.toggleClass('active')
 });
 
 $sunlightAnswerLow.click(e => {
   haveSunlight = "low";
+  $sunlightAnswerLow.toggleClass('active')
+  $sunlightAnswerNo.removeClass('active'),
+  $sunlightAnswerHight.removeClass('active')
 });
 
 $sunlightAnswerNo.click(e => {
 	haveSunlight = "no";
+  $sunlightAnswerNo.toggleClass('active')
+  $sunlightAnswerHight.removeClass('active'),
+  $sunlightAnswerLow.removeClass('active')
 });
 
 $waterAnswerRarely.click(e => {
   haveWater = "rarely";
+  $waterAnswerRarely.toggleClass('active')
+  $waterAnswerRegularly.removeClass('active')
+  $waterAnswerDaily.removeClass('active')
 })
 
 $waterAnswerRegularly.click(e => {
   haveWater = "regularly";
+  $waterAnswerRegularly.toggleClass('active')
+  $waterAnswerRarely.removeClass('active')
+  $waterAnswerDaily.removeClass('active')
 })
 
 $waterAnswerDaily.click(e => {
   haveWater = "Daily";
+  $waterAnswerDaily.toggleClass('active')
+  $waterAnswerRarely.removeClass('active')
+  $waterAnswerRegularly.removeClass('active')
 })
 
 $petsAnswerFalse.click(e => {
-  havePets = false;
+  isToxit = true;
+  $petsAnswerFalse.toggleClass('active');
+  $petsAnswerTrue.removeClass('active');
 })
 
 $petsAnswerTrue.click(e => {
-  havePets = true;
+  isToxit = false;
+  $petsAnswerTrue.toggleClass('active')
+  $petsAnswerFalse.removeClass('active');
 })
+
+function renderCard(data) {
+  return `
+    <h1 class="bg-color-green">${data.name}</h1>
+  `
+}
+
+const filterResults = () => {
+  const escolhasUsuario =
+    "sun=" + haveSunlight + "&water=" + haveWater + "&pets=" + isToxit;
+
+    console.log(escolhasUsuario)
+
+  const URL =
+    "https://6nrr6n9l50.execute-api.us-east-1.amazonaws.com/default/front-plantTest-service?" +
+    escolhasUsuario;
+
+  window.fetch(URL)
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      data.forEach(item => {
+
+        // document.write(renderCard(item))
+        // greenSectionPicks.appendChild('oiiiiiiiiiiiiiiiii')
+        // document.querySelector("#green-section-picks").appendChild(renderCard(item))
+      })
+    });
+};
+
 
 $nextFilterButton.click(e => {
   if (haveSunlight === undefined){
     return
   } else if (haveWater === undefined) {
     return
-  } else if (havePets === undefined) {
+  } else if (isToxit === undefined) {
     return
   } else {
     $nextFilterButton.attr('href', '#green-section-picks')
+    filterResults();
   }
 })
 
 $buyNow.click(e => {
-  $buyNow.attr('href', 'green-section-contact')
+  $buyNow.attr('href', '#green-section-contact')
 })
 
-
-// Quando clicarmos na ultima seta do carousel, ai sim devemos mostrar os resultas e chamar uma funcao para pegar o JSON do backend:
-
-// Olhe para o email de novo, e preste atenção como o backend espera a resposta:
-//Parâmetros e valores aceitos
-
-//sun :high , low ou no
-//water: daily , regularly ou rarely
-//pets: false ou true
-
-// EXEPLO DE CHAMADA (olha bem para o final da chamada, como tem as variaveis que vamos enviar): https://6nrr6n9l50.execute-api.us-east-1.amazonaws.com/default/front-plantTest-service?sun=high&water=rarely&pets=false
-const pegarResultados = () => {
-	const escolhasUsuario =
-    "sun=" + haveSunlight + "&water=" + havePets + "&pets" + havePets;
-}
-
-
-$('.carousel').carousel()
+$('.carousel').carousel('pause')
 
 $('.carousel').on('slid', '', function() {
   var $this = $(this);
@@ -134,17 +172,6 @@ const controlScroll = () => {
 }
 
 window.addEventListener('resize', controlResponsive.bind(this))
-
 window.addEventListener('scroll', controlScroll.bind(this))
-
 controlResponsive();
 controlScroll();
-
-// greenLogoRotate.forEach((item) => {
-// 	if ($window.width() < 708) {
-// 		item.style.opacity = '0';
-// 	} else {
-// 		item.style.opacity = '1';
-// 	}
-// })
-
