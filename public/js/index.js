@@ -75,11 +75,13 @@ $petsAnswerTrue.click(e => {
   $petsAnswerFalse.removeClass('active');
 })
 
-function renderCard(data) {
-  return `
-    <h1 class="bg-color-green">${data.name}</h1>
-  `
-}
+$(document).on('click', 'a[href^="#"]', function (e) {
+    e.preventDefault();
+    $('html, body').stop().animate({
+        scrollTop: $($(this).attr('href')).offset().top
+    }, 1000, 'linear');
+});
+
 
 const filterResults = () => {
   const escolhasUsuario =
@@ -96,12 +98,29 @@ const filterResults = () => {
       return response.json();
     })
     .then(data => {
-      console.log(data);
+      //list filter
+      let listFilter = '';
       data.forEach(item => {
-
-        // document.write(renderCard(item))
-        // greenSectionPicks.appendChild('oiiiiiiiiiiiiiiiii')
-        // document.querySelector("#green-section-picks").appendChild(renderCard(item))
+        let itemFilter = 
+        "<div class='green-image-card bg-color-white'><img src='" + item.url +  "'><h5>" +
+        item.name + "</h5><div class='green-image-card__description'> <p>" + item.price + 
+        "</p><div><img src='resources/icons/grey/high-sun.svg'><img src='resources/icons/grey/one-drop.svg'></div></div><a href='#green-section-contact' class='green-btn fg-green bg-hover-green buy_now_button' href=''>buy now</a></div>"
+        
+        listFilter = listFilter + itemFilter;
+      })
+      jQuery('.green-list__body').get(0).innerHTML = listFilter;
+      //contact filter
+      const $newbuyNow = jQuery(".buy_now_button");
+      console.log($newbuyNow)
+      $newbuyNow.click(e => {
+        let title = $(e.currentTarget).siblings('h5').text()
+        let imgUrl = $(e.currentTarget).siblings('img').attr('src')
+        let p = $(e.currentTarget).siblings('div').children('p').text()
+        jQuery('.green-image-description').get(0).innerHTML =
+        "<div class='green-image-description'><h2 class='green-h2'>" + title + "</h2><p class='green-text-1'>$" +
+        p + "</p><img src=" +
+        imgUrl + " alt=" + title + 
+        "><div class='green-image-description__description'><div><img src='resources/icons/grey/high-sun.svg' alt='bastante sol'>High sunlight</div><div><img src='resources/icons/grey/one-drop.svg' alt='pouca água'>Water rarely</div><div><img src='resources/icons/grey/pet.svg'> Non-toxic for pets </div></div></div>"
       })
     });
 };
