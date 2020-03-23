@@ -6,6 +6,7 @@ const greenCarouselMobile = document.querySelector('.green-carousel-mobile')
 const greenCarouselDesktop = document.querySelector('.green-carousel-desktop')
 const greenSectionPicks = document.querySelector('#green-section-picks')
 
+//active section filter
 let haveSunlight = undefined;
 let haveWater = undefined;
 let isToxit = undefined;
@@ -75,14 +76,15 @@ $petsAnswerTrue.click(e => {
   $petsAnswerFalse.removeClass('active');
 })
 
-$(document).on('click', 'a[href^="#"]', function (e) {
+//smoth scroll
+$(document).on('click', '.button-smoth-scroll', function (e) {
     e.preventDefault();
     $('html, body').stop().animate({
         scrollTop: $($(this).attr('href')).offset().top
     }, 1000, 'linear');
 });
 
-
+//data results
 const filterResults = () => {
   const escolhasUsuario =
     "sun=" + haveSunlight + "&water=" + haveWater + "&pets=" + isToxit;
@@ -98,17 +100,18 @@ const filterResults = () => {
       return response.json();
     })
     .then(data => {
-      //list filter
-      let listFilter = '';
+      let listFilterMobile = '';
+      let listFilterDesktop = '';
       data.forEach(item => {
-        let itemFilter = 
+        let itemFilterDesktop = 
         "<div class='green-image-card bg-color-white'><img src='" + item.url +  "'><h5>" +
         item.name + "</h5><div class='green-image-card__description'> <p>" + item.price + 
-        "</p><div><img src='resources/icons/grey/high-sun.svg'><img src='resources/icons/grey/one-drop.svg'></div></div><a href='#green-section-contact' class='green-btn fg-green bg-hover-green buy_now_button' href=''>buy now</a></div>"
+        "</p><div><img src='resources/icons/grey/high-sun.svg'><img src='resources/icons/grey/one-drop.svg'></div></div><a href='#green-section-contact' class='green-btn fg-green bg-hover-green buy_now_button button-smoth-scroll' href=''>buy now</a></div>"
         
-        listFilter = listFilter + itemFilter;
+        listFilterDesktop = listFilterDesktop + itemFilterDesktop;
       })
-      jQuery('.green-list__body').get(0).innerHTML = listFilter;
+
+      jQuery('.green-list__body').get(0).innerHTML = listFilterDesktop;
       //contact filter
       const $newbuyNow = jQuery(".buy_now_button");
       console.log($newbuyNow)
@@ -125,7 +128,7 @@ const filterResults = () => {
     });
 };
 
-
+//Controll for buttons in filter
 $nextFilterButton.click(e => {
   if (haveSunlight === undefined){
     return
@@ -134,7 +137,7 @@ $nextFilterButton.click(e => {
   } else if (isToxit === undefined) {
     return
   } else {
-    $nextFilterButton.attr('href', '#green-section-picks')
+    $nextFilterButton.attr('href', '#green-section-picks').addClass("button-smoth-scroll")
     filterResults();
   }
 })
